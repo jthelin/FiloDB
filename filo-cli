@@ -3,12 +3,12 @@
 # set -x
 SCALA_VERSION="2.10"
 FILO_VERSION="0.1-SNAPSHOT"
-CLI_FILE=`pwd`"/cli/target/scala-$SCALA_VERSION/filo-cli-$FILO_VERSION"
+CLI_FILE=$(pwd)"/cli/target/scala-$SCALA_VERSION/filo-cli-$FILO_VERSION"
 
 function isJava8(){
 if [[ "$JAVA" ]]; then
     version=$("$JAVA" -version 2>&1 | awk -F '"' '/version/ {print $2}')
-    if [[ "$version" < "1.8" ]]; then
+    if [[ "v$version" < "v1.8" ]]; then
         echo "FiloDB requires Java JDK 1.8 and the current version is $version. Please upgrade to continue."
         exit
     fi
@@ -38,4 +38,4 @@ if [ ! -f "$CLI_FILE" ];then
     $CLI_FILE --command init
 fi
 
-$CLI_FILE $@
+$CLI_FILE "$@"
